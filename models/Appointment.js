@@ -25,6 +25,7 @@ const AppointmentSchema = mongoose.Schema({
         },
         time: {
           type: String,
+          unique:true ,
           required: true,
         },
         status: {
