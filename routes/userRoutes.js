@@ -190,14 +190,24 @@ router.get("/get-all-approved-doctors", AuthMiddleware, async (req, res) => {
   router.post("/check-booking-availability", AuthMiddleware, async (req, res) => {
     try {
       const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
-      const test = moment(req.time)
-      const formattedTime = test.format("HH:mm")
+      const test = req.body['time']
+      const [hours, minutes] = test.split(':');
+      const dateObj = new Date();
+      dateObj.setHours(hours);
+      dateObj.setMinutes(minutes);
+      dateObj.setHours(dateObj.getHours() + 1);
+      const newHours = String(dateObj.getHours()).padStart(2, '0');
+      const newMinutes = String(dateObj.getMinutes()).padStart(2, '0');
+      const newTimeString = `${newHours}:${newMinutes}`;
+      // console.log(newTimeString);
+
+      const formattedTime = test
       const boundaries = await Doctor.find({_id : req.body.doctorId}).catch((e)=> console.log(e))
       const timings = boundaries[0].timings
-      if(formattedTime <= timings[0] || formattedTime >= timings[1])
+      if(formattedTime < timings[0] || formattedTime > timings[1] || newTimeString> timings[1])
       {
         return res.status(200).send({
-          message: "Appointments not available",
+          message: "Appointments not available!",
           success: false,
         });
       }
