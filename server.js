@@ -9,8 +9,6 @@ connectToDatabase()
 const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require("./routes/adminRoutes")
 const doctorsRoutes = require("./routes/doctorsRoutes")
-const path = require("path")
-
 
 
 app.use("/api/user", userRoutes)
@@ -25,10 +23,11 @@ app.use("/api/doctor", doctorsRoutes)
 //     });
 //   }
 if (process.env.NODE_ENV === 'production') {
-    //*Set static folder up in production
-    app.use(express.static('client/build'));
-
-    app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+    const path = require("path")
+    app.get('/', (req,res) => {
+      app.use(express.static(path.resolve(__dirname, 'client', 'build')))
+      res.sendFile(path.resolve(__dirname, 'client', 'build','index.html'))
+    })
   }
 //middleware for handling errors
 app.use((error, req,res, next)=>{

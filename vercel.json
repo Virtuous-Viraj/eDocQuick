@@ -1,10 +1,14 @@
 {
-    "version": 2,
-    "name": "eDocQuick",
-    "builds": [
-       { "src": "app.js", "use": "@vercel/node" }
+    "builds" : [
+        {
+            "src" : "./server.js",
+            "user" : "@vercel/node"
+        }
     ],
-    "routes": [
-       { "src": "/(.*)", "dest": "/app.js" }
+    "routes" :[
+        {
+            "src" : "/.*",
+            "dest" : "server.js"
+        }
     ]
- }
+}
