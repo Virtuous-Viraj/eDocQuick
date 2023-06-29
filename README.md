@@ -55,7 +55,7 @@ Once Approved or Rejected User will recieve notification
 To get a local copy of the project up and running, follow these steps:
 
 ### Clone the repository:
-`git clone https://github.com/your-username/eDocQuick.git`
+`git clone https://github.com/Virtuous-Viraj/eDocQuick.git`
 
 Install the dependencies for both the frontend and backend:
 ### Frontend
